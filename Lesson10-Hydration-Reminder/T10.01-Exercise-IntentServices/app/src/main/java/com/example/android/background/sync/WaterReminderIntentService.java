@@ -1,3 +1,10 @@
+
+package com.example.android.background.sync;
+import android.app.IntentService;
+import android.content.Intent;
+
+import com.example.android.background.sync.ReminderTasks;
+
 /*
  * Copyright (C) 2016 The Android Open Source Project
  *
@@ -13,7 +20,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+public class WaterReminderIntentService extends IntentService{
+    public WaterReminderIntentService() {
+        super("WaterReminderIntentService");
+    }
 
+    @Override
+    protected void onHandleIntent(Intent intent) {
+        String action = intent.getAction();
+        ReminderTasks.executeTask(this, action);
+    }
+}
 // TODO (9) Create WaterReminderIntentService and extend it from IntentService
 
 //  TODO (10) Create a default constructor that calls super with the name of this class

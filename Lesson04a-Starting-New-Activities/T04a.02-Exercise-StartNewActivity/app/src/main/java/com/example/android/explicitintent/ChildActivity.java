@@ -17,6 +17,7 @@ package com.example.android.explicitintent;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.TextView;
 
 public class ChildActivity extends AppCompatActivity {
@@ -31,5 +32,11 @@ public class ChildActivity extends AppCompatActivity {
 
         /* Typical usage of findViewById... */
         mDisplayText = (TextView) findViewById(R.id.tv_display);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.i("CHILDACTIVITY","onDestroy");
     }
 }
