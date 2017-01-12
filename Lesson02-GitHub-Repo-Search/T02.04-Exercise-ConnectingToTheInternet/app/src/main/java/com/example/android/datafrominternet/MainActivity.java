@@ -15,6 +15,7 @@
  */
 package com.example.android.datafrominternet;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -24,6 +25,7 @@ import android.widget.TextView;
 
 import com.example.android.datafrominternet.utilities.NetworkUtils;
 
+import java.io.IOException;
 import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
@@ -56,9 +58,31 @@ public class MainActivity extends AppCompatActivity {
         URL githubSearchUrl = NetworkUtils.buildUrl(githubQuery);
         mUrlDisplayTextView.setText(githubSearchUrl.toString());
         // TODO (2) Call getResponseFromHttpUrl and display the results in mSearchResultsTextView
+        String githubSearchResults = null;
+        new GithubQueryTask().execute(githubSearchUrl);
         // TODO (3) Surround the call to getResponseFromHttpUrl with a try / catch block to catch an IOException
-    }
 
+    }
+    public class GithubQueryTask extends AsyncTask<URL,Void, String>{
+        @Override
+        protected String doInBackground(URL... urls) {
+            URL searchUrl = urls[0];
+            String githubSearchResults = null;
+            try{
+                githubSearchResults = NetworkUtils.getResponseFromHttpUrl(searchUrl);
+            }catch (IOException e){
+                e.printStackTrace();;
+            }
+            return githubSearchResults;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            if(s!=null && !s.equals("")){
+                mSearchResultsTextView.setText(s);
+            }
+        }
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
