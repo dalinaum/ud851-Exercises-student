@@ -29,10 +29,11 @@ import android.widget.Toast;
 
 // TODO (1) Implement OnPreferenceChangeListener
 public class SettingsFragment extends PreferenceFragmentCompat implements
-        OnSharedPreferenceChangeListener {
+        OnSharedPreferenceChangeListener,Preference.OnPreferenceChangeListener {
 
     @Override
     public void onCreatePreferences(Bundle bundle, String s) {
+
 
         // Add visualizer preferences, defined in the XML file in res->xml->pref_visualizer
         addPreferencesFromResource(R.xml.pref_visualizer);
@@ -51,6 +52,9 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
                 setPreferenceSummary(p, value);
             }
         }
+
+        Preference preference=findPreference(getString(R.string.pref_size_key));
+        preference.setOnPreferenceChangeListener(this);
         // TODO (3) Add the OnPreferenceChangeListener specifically to the EditTextPreference
     }
 
@@ -105,5 +109,29 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
         super.onDestroy();
         getPreferenceScreen().getSharedPreferences()
                 .unregisterOnSharedPreferenceChangeListener(this);
+    }
+
+    @Override
+    public boolean onPreferenceChange(Preference preference, Object newValue) {
+        Toast error=Toast.makeText(getContext(),"제대된 실수값을 입력하세요 0.1~3 사이",Toast.LENGTH_SHORT);
+
+        String sizekey=getString(R.string.pref_size_key);
+        if(preference.getKey().equals(sizekey)){
+            String stringSize=((String)(newValue)).trim();
+            if(stringSize.equals(""))stringSize="1";
+            try{
+                float size=Float.parseFloat(stringSize);
+                if(size<=0||size>3){
+                    error.show();
+                    return false;
+                }
+            }catch (NumberFormatException e){
+                error.show();
+                return false;
+            }
+        }
+
+
+        return true;
     }
 }

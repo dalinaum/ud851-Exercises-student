@@ -27,7 +27,7 @@ import android.support.v4.content.ContextCompat;
  * We aren't going to go into detail about how this method works, but feel
  * free to explore!
  */
-public class ColorUtils {
+public class  ColorUtils {
 
     /**
      * This method returns the appropriate shade of green to form the gradient

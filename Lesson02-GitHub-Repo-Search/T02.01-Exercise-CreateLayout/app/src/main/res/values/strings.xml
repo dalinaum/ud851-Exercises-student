@@ -15,4 +15,7 @@
   -->
 <resources>
     <string name="app_name">Github Query</string>
+
+    <string name="tongil">king</string>
+
 </resources>

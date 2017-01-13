@@ -165,6 +165,7 @@ public class MainActivity extends AppCompatActivity implements
     public Loader<String> onCreateLoader(int id, final Bundle args) {
         return new AsyncTaskLoader<String>(this) {
 
+            private String mGithubJson;
             // TODO (1) Create a String member variable called mGithubJson that will store the raw JSON
 
             @Override
@@ -181,8 +182,12 @@ public class MainActivity extends AppCompatActivity implements
                  */
                 mLoadingIndicator.setVisibility(View.VISIBLE);
 
+                if(mGithubJson!=null){
+                    deliverResult(mGithubJson);
+                }else{
+                    forceLoad();
+                }
                 // TODO (2) If mGithubJson is not null, deliver that result. Otherwise, force a load
-                forceLoad();
             }
 
             @Override
@@ -205,6 +210,12 @@ public class MainActivity extends AppCompatActivity implements
                     e.printStackTrace();
                     return null;
                 }
+            }
+
+            @Override
+            public void deliverResult(String data) {
+                mGithubJson=data;
+                super.deliverResult(data);
             }
 
             // TODO (3) Override deliverResult and store the data in mGithubJson
