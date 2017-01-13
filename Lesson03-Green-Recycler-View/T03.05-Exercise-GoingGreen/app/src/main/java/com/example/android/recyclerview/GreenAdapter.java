@@ -38,7 +38,8 @@ import android.widget.TextView;
 public class GreenAdapter extends RecyclerView.Adapter<GreenAdapter.NumberViewHolder> {
 
     private static final String TAG = GreenAdapter.class.getSimpleName();
-
+    private static int viewHolderCount;
+    private static int viewHolderTotal = 0;
     // TODO (8) Add a private static int called viewHolderCount that will hold the total number of ViewHolders that are created
 
     private int mNumberItems;
@@ -51,6 +52,7 @@ public class GreenAdapter extends RecyclerView.Adapter<GreenAdapter.NumberViewHo
      */
     public GreenAdapter(int numberOfItems) {
         mNumberItems = numberOfItems;
+        viewHolderCount = 0;
         // TODO (9) When a new GreenAdapter is created, set the viewHolderCount to 0
     }
     /**
@@ -74,9 +76,12 @@ public class GreenAdapter extends RecyclerView.Adapter<GreenAdapter.NumberViewHo
 
         View view = inflater.inflate(layoutIdForListItem, viewGroup, shouldAttachToParentImmediately);
         NumberViewHolder viewHolder = new NumberViewHolder(view);
-
+        viewHolder.instanceView.setText("ViewHolder index: "+viewHolderCount + " "+ viewHolderTotal);
         // TODO (12) Set the text of viewHolderIndex to "ViewHolder index: " + viewHolderCount
-
+        int color = ColorUtils.getViewHolderBackgroundColorFromInstance(context, viewHolderCount);
+        viewHolder.instanceView.setBackgroundColor(color);
+        viewHolderCount++;
+        viewHolderTotal++;
         // TODO (13) Use ColorUtils.getViewHolderBackgroundColorFromInstance and pass in a Context and the viewHolderCount
         // TODO (14) Set the background color of viewHolder.itemView with the color from above
 
@@ -119,6 +124,7 @@ public class GreenAdapter extends RecyclerView.Adapter<GreenAdapter.NumberViewHo
 
         // Will display the position in the list, ie 0 through getItemCount() - 1
         TextView listItemNumberView;
+        TextView instanceView;
         // TODO (10) Add a TextView variable to display the ViewHolder index
 
         /**
@@ -132,7 +138,7 @@ public class GreenAdapter extends RecyclerView.Adapter<GreenAdapter.NumberViewHo
             super(itemView);
 
             listItemNumberView = (TextView) itemView.findViewById(R.id.tv_item_number);
-
+            instanceView = (TextView)itemView.findViewById(R.id.tv_view_holder_instance);
             // TODO (11) Use itemView.findViewById to get a reference to tv_view_holder_instance
         }
 

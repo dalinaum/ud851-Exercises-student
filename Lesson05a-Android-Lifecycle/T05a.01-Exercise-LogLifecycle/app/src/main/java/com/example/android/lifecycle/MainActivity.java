@@ -46,8 +46,38 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mLifecycleDisplay = (TextView) findViewById(R.id.tv_lifecycle_events_display);
-
+        logAndAppend(ON_CREATE + " : logAndAppend : ");
         // TODO (1) Use logAndAppend within onCreate
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        logAndAppend(ON_START+ " : logAndAppend : ");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        logAndAppend(ON_RESUME + " : logAndAppend : ");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        logAndAppend(ON_PAUSE + " : logAndAppend : ");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        logAndAppend(ON_STOP + " : logAndAppend : ");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        logAndAppend(ON_RESTART+ " : logAndAppend : ");
     }
 
     // TODO (2) Override onStart, call super.onStart, and call logAndAppend with ON_START
@@ -71,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
 
-        logAndAppend(ON_DESTROY);
+        logAndAppend(ON_DESTROY + " : logAndAppend : ");
     }
 
     /**

@@ -49,11 +49,13 @@ public class MainActivity extends AppCompatActivity {
      */
     public void onClickOpenAddressButton(View v) {
         // TODO (5) Store an address in a String
+        String address = "1600 Amphitheatre Parkway, CA";
 
         // TODO (6) Use Uri.parse with the appropriate scheme and query to form the Uri for the address
-
+        Uri addressUri = Uri.parse("geo:0,0?q="+address);
+        System.out.println("여기까지 옵니다0");
+        showMap(addressUri);
         // TODO (7) Replace the Toast with a call to showMap, passing in the Uri from the previous step
-        Toast.makeText(this, "TODO: Open a map when this button is clicked", Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -111,7 +113,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
+    public void showMap(Uri uri){
+        System.out.println("여기까지 옵니다1");
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(uri);
+        System.out.println("여기까지 옵니다2");
+        if(intent.resolveActivity(getPackageManager())!=null){
+            System.out.println("여기까지 옵니다3");
+            startActivity(intent);
+        }
+    }
     // TODO (1) Create a method called showMap with a Uri as the single parameter
     // Do steps 2 - 4 within the showMap method
         // TODO (2) Create an Intent with action type, Intent.ACTION_VIEW
@@ -119,6 +130,4 @@ public class MainActivity extends AppCompatActivity {
         // TODO (3) Set the data of the Intent to the Uri passed into this method
 
         // TODO (4) Verify that this Intent can be launched and then call startActivity
-
-
 }

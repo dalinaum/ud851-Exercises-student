@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
                 // Here is where you'll implement swipe to delete
+
             }
         }).attachToRecyclerView(mRecyclerView);
 
