@@ -22,5 +22,6 @@
          attribute to false-->
         <service android:name=".sync.WaterReminderIntentService"
             android:exported="false"/>
+
     </application>
 </manifest>

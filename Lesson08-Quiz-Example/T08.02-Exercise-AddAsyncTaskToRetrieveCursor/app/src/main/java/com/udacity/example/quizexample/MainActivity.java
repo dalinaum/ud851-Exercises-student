@@ -36,8 +36,9 @@ public class MainActivity extends AppCompatActivity {
     private int mCurrentState;
 
     // TODO (3) Create an instance variable storing a Cursor called mData
-    private Button mButton;
     private Cursor mData;
+
+    private Button mButton;
 
     // This state is when the word definition is hidden and clicking the button will therefore
     // show the definition
@@ -57,8 +58,8 @@ public class MainActivity extends AppCompatActivity {
         mButton = (Button) findViewById(R.id.button_next);
 
         // TODO (5) Create and execute your AsyncTask here
-        WordFetchTask wf = new WordFetchTask();
-        wf.execute();
+        WordFetchTask wordFetchTask=new WordFetchTask();
+        wordFetchTask.execute();
     }
 
     /**
@@ -98,22 +99,27 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    // TODO (1) Create AsyncTask with the following generic types <Void, Void, Cursor>
-    public class WordFetchTask extends AsyncTask<Void, Void, Cursor> {
-        @Override
-        protected Cursor doInBackground(Void... params) {
-            ContentResolver resolver = getContentResolver();
+    public class WordFetchTask extends AsyncTask<Void, Void, Cursor>{
 
-            Cursor cur = resolver.query(DroidTermsExampleContract.CONTENT_URI, null, null, null, null);
-            return cur;
-        }
-        // TODO (2) In the doInBackground method, write the code to access the DroidTermsExample
-        // provider and return the Cursor object
-        // TODO (4) In the onPostExecute method, store the Cursor object in mData
         @Override
-        protected void onPostExecute(Cursor cursor){
+        protected Cursor doInBackground(Void... voids) {
+
+            ContentResolver resolver=getContentResolver();
+            Cursor cursor=resolver.query(DroidTermsExampleContract.CONTENT_URI,null,null,null,null);
+
+            return cursor;
+        }
+
+        @Override
+        protected void onPostExecute(Cursor cursor) {
             super.onPostExecute(cursor);
-            mData = cursor;
+
+            mData=cursor;
         }
     }
+    // TODO (1) Create AsyncTask with the following generic types <Void, Void, Cursor>
+    // TODO (2) In the doInBackground method, write the code to access the DroidTermsExample
+    // provider and return the Cursor object
+    // TODO (4) In the onPostExecute method, store the Cursor object in mData
+
 }

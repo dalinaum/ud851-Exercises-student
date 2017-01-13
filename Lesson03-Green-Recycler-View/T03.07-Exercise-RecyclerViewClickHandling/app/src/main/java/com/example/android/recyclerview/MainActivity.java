@@ -23,8 +23,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.android.recyclerview.GreenAdapter.ListItemClickListener;
+
 // TODO (8) Implement GreenAdapter.ListItemClickListener from the MainActivity
-public class MainActivity extends AppCompatActivity implements GreenAdapter.ListItemClickListener{
+public class MainActivity extends AppCompatActivity implements  ListItemClickListener
+{
 
     private static final int NUM_LIST_ITEMS = 100;
 
@@ -73,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements GreenAdapter.List
         /*
          * The GreenAdapter is responsible for displaying each item in the list.
          */
-        mAdapter = new GreenAdapter(NUM_LIST_ITEMS, this);
+        mAdapter = new GreenAdapter(this, NUM_LIST_ITEMS);
         mNumbersList.setAdapter(mAdapter);
     }
 
@@ -97,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements GreenAdapter.List
              */
             case R.id.action_refresh:
                 // TODO (14) Pass in this as the ListItemClickListener to the GreenAdapter constructor
-                mAdapter = new GreenAdapter(NUM_LIST_ITEMS, this);
+                mAdapter = new GreenAdapter(this, NUM_LIST_ITEMS);
                 mNumbersList.setAdapter(mAdapter);
                 return true;
         }
@@ -105,15 +108,18 @@ public class MainActivity extends AppCompatActivity implements GreenAdapter.List
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onListItemClick(int clickedItemIndex) {
+        if(mToast!=null){
+            mToast.cancel();
+        }
+
+        String toastMessage="Item #"+clickedItemIndex+" clicked.";
+        mToast=Toast.makeText(this, toastMessage, Toast.LENGTH_LONG);
+        mToast.show();
+    }
+
     // TODO (10) Override ListItemClickListener's onListItemClick method
     // TODO (11) In the beginning of the method, cancel the Toast if it isn't null
     // TODO (12) Show a Toast when an item is clicked, displaying that item number that was clicked
-    @Override
-    public void onListItemClick(int clickedItemIndex){
-        if(mToast != null){
-            mToast.cancel();;
-        }
-        String msg = "item #" + clickedItemIndex + " clicked";
-        mToast.makeText(this, msg, Toast.LENGTH_LONG).show();
-    }
 }

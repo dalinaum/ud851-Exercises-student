@@ -55,7 +55,8 @@ public class MainActivity extends AppCompatActivity implements
         updateChargingReminderCount();
 
         // TODO (23) Schedule the charging reminder
-        ReminderUtilities.scheduleChargningReminder(this);
+        ReminderUtilities.scheduleChargingReminder(this);
+
         /** Setup the shared preference listener **/
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         prefs.registerOnSharedPreferenceChangeListener(this);
@@ -93,8 +94,6 @@ public class MainActivity extends AppCompatActivity implements
         startService(incrementWaterCountIntent);
     }
 
-
-    // TODO (24) Remove the button and testNotification code
 
     @Override
     protected void onDestroy() {

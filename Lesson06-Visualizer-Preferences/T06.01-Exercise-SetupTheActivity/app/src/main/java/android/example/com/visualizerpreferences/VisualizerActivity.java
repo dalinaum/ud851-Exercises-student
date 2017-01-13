@@ -119,6 +119,28 @@ public class VisualizerActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater=getMenuInflater();
+        inflater.inflate(R.menu.visualizer_menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id=item.getItemId();
+        if(id==R.id.action_settings){
+            Intent intent=new Intent(this, SettingsActivity.class);
+            startActivity(intent);
+            return true;
+
+        }
+
+
+        return super.onOptionsItemSelected(item);
+    }
+
     // TODO (1) Create a new Empty Activity named SettingsActivity; make sure to generate the
     // activity_settings.xml layout file as well and add the activity to the manifest
 
@@ -129,22 +151,4 @@ public class VisualizerActivity extends AppCompatActivity {
 
     // TODO (5) Add the menu to the menu bar
     // TODO (6) When the "Settings" menu item is pressed, open SettingsActivity
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        MenuInflater inf = getMenuInflater();
-        inf.inflate(R.menu.visualizer_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        int id = item.getItemId();
-        if(id == R.id.action_settings){
-            Intent in = new Intent(this, SettingsActivity.class);
-            startActivity(in);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }

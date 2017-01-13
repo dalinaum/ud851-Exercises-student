@@ -46,52 +46,64 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mLifecycleDisplay = (TextView) findViewById(R.id.tv_lifecycle_events_display);
-        logAndAppend(ON_SAVE_INSTANCE_STATE);
+
+        logAndAppend(ON_CREATE);
         // TODO (1) Use logAndAppend within onCreate
     }
 
-    // TODO (2) Override onStart, call super.onStart, and call logAndAppend with ON_START
     @Override
-    protected void onStart(){
-        super.onStart();
+    protected void onStart() {
         logAndAppend(ON_START);
+        super.onStart();
     }
-    // TODO (3) Override onResume, call super.onResume, and call logAndAppend with ON_RESUME
+
     @Override
-    protected  void onResume(){
-        super.onResume();
+    protected void onResume() {
         logAndAppend(ON_RESUME);
+        super.onResume();
     }
-    // TODO (4) Override onPause, call super.onPause, and call logAndAppend with ON_PAUSE
+
     @Override
-    protected void onPause(){
-        super.onPause();
+    protected void onPause() {
         logAndAppend(ON_PAUSE);
+        super.onPause();
     }
-    // TODO (5) Override onStop, call super.onStop, and call logAndAppend with ON_STOP
+
     @Override
-    protected void onStop(){
-        super.onStop();
-        logAndAppend(ON_STOP);
-    }
-    // TODO (6) Override onRestart, call super.onRestart, and call logAndAppend with ON_RESTART
-    @Override
-    protected void onRestart(){
-        super.onRestart();
+    protected void onRestart() {
         logAndAppend(ON_RESTART);
+        super.onRestart();
     }
-    // TODO (7) Override onDestroy, call super.onDestroy, and call logAndAppend with ON_DESTROY
+
     @Override
-    protected void onDestroy(){
-        super.onDestroy();
-        logAndAppend(ON_DESTROY);
+    protected void onStop() {
+        logAndAppend(ON_STOP);
+        super.onStop();
     }
+
+    // TODO (2) Override onStart, call super.onStart, and call logAndAppend with ON_START
+
+    // TODO (3) Override onResume, call super.onResume, and call logAndAppend with ON_RESUME
+
+    // TODO (4) Override onPause, call super.onPause, and call logAndAppend with ON_PAUSE
+
+    // TODO (5) Override onStop, call super.onStop, and call logAndAppend with ON_STOP
+
+    // TODO (6) Override onRestart, call super.onRestart, and call logAndAppend with ON_RESTART
+
+    // TODO (7) Override onDestroy, call super.onDestroy, and call logAndAppend with ON_DESTROY
     /**
      * The final call you receive before your activity is destroyed. This can happen either because
      * the activity is finishing (someone called finish() on it, or because the system is
      * temporarily destroying this instance of the activity to save space. You can distinguish
      * between these two scenarios with the isFinishing() method.
      */
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        logAndAppend(ON_DESTROY);
+    }
 
     /**
      * Logs to the console and appends the lifecycle method name to the TextView so that you can

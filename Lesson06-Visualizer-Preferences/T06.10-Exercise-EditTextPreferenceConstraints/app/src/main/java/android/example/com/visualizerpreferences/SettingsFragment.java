@@ -29,10 +29,11 @@ import android.widget.Toast;
 
 // TODO (1) Implement OnPreferenceChangeListener
 public class SettingsFragment extends PreferenceFragmentCompat implements
-        OnSharedPreferenceChangeListener, Preference.OnPreferenceChangeListener {
+        OnSharedPreferenceChangeListener,Preference.OnPreferenceChangeListener {
 
     @Override
     public void onCreatePreferences(Bundle bundle, String s) {
+
 
         // Add visualizer preferences, defined in the XML file in res->xml->pref_visualizer
         addPreferencesFromResource(R.xml.pref_visualizer);
@@ -51,9 +52,10 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
                 setPreferenceSummary(p, value);
             }
         }
+
+        Preference preference=findPreference(getString(R.string.pref_size_key));
+        preference.setOnPreferenceChangeListener(this);
         // TODO (3) Add the OnPreferenceChangeListener specifically to the EditTextPreference
-        Preference pref = findPreference(getString(R.string.pref_size_key));
-        pref.setOnPreferenceChangeListener(this);
     }
 
     @Override
@@ -111,25 +113,25 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        Toast err = Toast.makeText(getContext(), "please select a number between 0.1 and 3", Toast.LENGTH_SHORT);
+        Toast error=Toast.makeText(getContext(),"제대된 실수값을 입력하세요 0.1~3 사이",Toast.LENGTH_SHORT);
 
-        String sizeKey = getString(R.string.pref_size_key);
-        if(preference.getKey().equals(sizeKey)){
-            String stringSize = ((String)(newValue)).trim();
-            if(stringSize.equals("")){
-                stringSize = "1";
-            }
+        String sizekey=getString(R.string.pref_size_key);
+        if(preference.getKey().equals(sizekey)){
+            String stringSize=((String)(newValue)).trim();
+            if(stringSize.equals(""))stringSize="1";
             try{
-                float size = Float.parseFloat(stringSize);
-                if(size>3||size<=0){
-                    err.show();
+                float size=Float.parseFloat(stringSize);
+                if(size<=0||size>3){
+                    error.show();
                     return false;
                 }
             }catch (NumberFormatException e){
-                err.show();
+                error.show();
                 return false;
             }
         }
-        return false;
+
+
+        return true;
     }
 }

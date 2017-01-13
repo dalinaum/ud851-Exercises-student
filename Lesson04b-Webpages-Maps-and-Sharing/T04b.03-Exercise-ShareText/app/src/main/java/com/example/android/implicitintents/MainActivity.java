@@ -62,12 +62,31 @@ public class MainActivity extends AppCompatActivity {
      *
      * @param v Button that was clicked.
      */
+
+
     public void onClickShareTextButton(View v) {
         // TODO (5) Specify a String you'd like to share
-        String shareText = "놟쐛씗쀍";
+
         // TODO (6) Replace the Toast with shareText, passing in the String from step 5
-        shareText(shareText);
-       }
+        String textThatYouWantToShare =
+                "Sharing the coolest thing I've learned so far. You should " +
+                        "check out Udacity and Google's Android Nanodegree!";
+
+        shareText(textThatYouWantToShare);
+
+    }
+
+    public void shareText(String textToShare){
+        String mimeType = "text/plain";
+        String title = "Learning How to Share";
+
+        ShareCompat.IntentBuilder
+                .from(this)
+                .setType(mimeType)
+                .setChooserTitle(title)
+                .setText(textToShare)
+                .startChooser();
+    }
 
     /**
      * This is where you will create and fire off your own implicit Intent. Yours will be very
@@ -142,16 +161,10 @@ public class MainActivity extends AppCompatActivity {
 
     // TODO (1) Create a void method called shareText that accepts a String as a parameter
     // Do steps 2 - 4 within the shareText method
-        public void shareText(String textToShare){
+
         // TODO (2) Create a String variable called mimeType and set it to "text/plain"
-        String mimeType = "text/plain";
+
         // TODO (3) Create a title for the chooser window that will pop up
-        String title = "hihi";
+
         // TODO (4) Use ShareCompat.IntentBuilder to build the Intent and start the chooser
-        ShareCompat.IntentBuilder.from(this)
-                .setChooserTitle(title)
-                .setText(textToShare)
-                .setType(mimeType)
-                .startChooser();
-        }
 }

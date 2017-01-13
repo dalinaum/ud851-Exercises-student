@@ -22,7 +22,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.view.View.OnClickListener;
 
 /**
  * We couldn't come up with a good name for this class. Then, we realized
@@ -40,6 +39,7 @@ public class GreenAdapter extends RecyclerView.Adapter<GreenAdapter.NumberViewHo
 
     private static final String TAG = GreenAdapter.class.getSimpleName();
 
+    final private ListItemClickListener mOnClickListener;
     // TODO (3) Create a final private ListItemClickListener called mOnClickListener
 
     /*
@@ -87,11 +87,11 @@ public class GreenAdapter extends RecyclerView.Adapter<GreenAdapter.NumberViewHo
     private static int viewHolderCount;
 
     private int mNumberItems;
-    final private ListItemClickListener mOnClickListener;
-    // TODO (1) Add an interface called ListItemClickListener
-    public interface ListItemClickListener {
+
+    public interface ListItemClickListener{
         void onListItemClick(int clickedItemIndex);
     }
+    // TODO (1) Add an interface called ListItemClickListener
     // TODO (2) Within that interface, define a void method called onListItemClick that takes an int as a parameter
 
     // TODO (4) Add a ListItemClickListener as a parameter to the constructor and store it in mOnClickListener
@@ -99,17 +99,18 @@ public class GreenAdapter extends RecyclerView.Adapter<GreenAdapter.NumberViewHo
      * Constructor for GreenAdapter that accepts a number of items to display and the specification
      * for the ListItemClickListener.
      *
+     * @param mOnClickListener
      * @param numberOfItems Number of items to display in list
      */
-    public GreenAdapter(int numberOfItems, ListItemClickListener listener) {
+    public GreenAdapter(ListItemClickListener listener, int numberOfItems) {
+        mOnClickListener=listener;
         mNumberItems = numberOfItems;
         viewHolderCount = 0;
-        mOnClickListener = listener;
     }
 
     /**
      *
-     * This gets called when each new ViewHolder is created. This happens when the RecyclerView
+     * This gets called when each new ViewHolder is created . This happens when the RecyclerView
      * is laid out. Enough ViewHolders will be created to fill the screen and allow for scrolling.
      *
      * @param viewGroup The ViewGroup that these ViewHolders are contained within.
@@ -172,7 +173,7 @@ public class GreenAdapter extends RecyclerView.Adapter<GreenAdapter.NumberViewHo
     /**
      * Cache of the children views for a list item.
      */
-    class NumberViewHolder extends RecyclerView.ViewHolder implements OnClickListener{
+    class NumberViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         // Will display the position in the list, ie 0 through getItemCount() - 1
         TextView listItemNumberView;
@@ -195,6 +196,7 @@ public class GreenAdapter extends RecyclerView.Adapter<GreenAdapter.NumberViewHo
             itemView.setOnClickListener(this);
         }
 
+
         /**
          * A method we wrote for convenience. This method will take an integer as input and
          * use that integer to display the appropriate text within a list item.
@@ -206,8 +208,8 @@ public class GreenAdapter extends RecyclerView.Adapter<GreenAdapter.NumberViewHo
 
         @Override
         public void onClick(View v) {
-            int position = getAdapterPosition();
-            mOnClickListener.onListItemClick(position);
+            int clickedPosition=getAdapterPosition();
+            mOnClickListener.onListItemClick(clickedPosition);
         }
 
         // TODO (6) Override onClick, passing the clicked item's position (getAdapterPosition()) to mClickHandler via its onListItemClick method

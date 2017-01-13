@@ -5,16 +5,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 /**
- * Created by kinwha on 2017-01-04.
+ * Created by tong-ilsong on 2017. 1. 5..
  */
 
-public class ChildActivity extends AppCompatActivity{
-    private TextView mDisplayText;
+public class ChildActivity extends AppCompatActivity {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    private TextView mDisplay;
+
+    protected  void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_child);
-        mDisplayText = (TextView)findViewById(R.id.tv_display)
+
+        mDisplay=(TextView)findViewById(R.id.tv_display);
     }
 }

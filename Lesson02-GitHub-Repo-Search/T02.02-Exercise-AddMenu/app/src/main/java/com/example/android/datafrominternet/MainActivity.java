@@ -15,7 +15,6 @@
  */
 package com.example.android.datafrominternet;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -31,15 +30,12 @@ public class MainActivity extends AppCompatActivity {
     private TextView mUrlDisplayTextView;
 
     private TextView mSearchResultsTextView;
-    Context context;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        context = this;
         mSearchBoxEditText = (EditText) findViewById(R.id.et_search_box);
 
         mUrlDisplayTextView = (TextView) findViewById(R.id.tv_url_display);
@@ -55,29 +51,30 @@ public class MainActivity extends AppCompatActivity {
     // TODO (7) Set the title to the search string ("Search") from strings.xml
     // Do 2 - 7 in menu.xml ///////////////////////////////////////////////////////////////////////
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int menuItemThatWasSelected=item.getItemId();
+        if(menuItemThatWasSelected==R.id.action_search){
+            Toast.makeText(getApplicationContext(),"hello",Toast.LENGTH_LONG).show();
+        }
+
+
+        return super.onOptionsItemSelected(item);
+    }
 
     // TODO (8) Override onCreateOptionsMenu
     // TODO (9) Within onCreateOptionsMenu, use getMenuInflater().inflate to inflate the menu
     // TODO (10) Return true to display your menu
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
     // TODO (11) Override onOptionsItemSelected
     // TODO (12) Within onOptionsItemSelected, get the ID of the item that was selected
     // TODO (13) If the item's ID is R.id.action_search, show a Toast and return true to tell Android that you've handled this menu click
     // TODO (14) Don't forgot to call .show() on your Toast
     // TODO (15) If you do NOT handle the menu click, return super.onOptionsItemSelected to let Android handle the menu click
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int selected = item.getItemId();
-        if(selected == R.id.action_search){
-            Toast.makeText(context, "search", Toast.LENGTH_LONG).show();
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }

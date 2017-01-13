@@ -94,6 +94,8 @@ public class MainActivity extends AppCompatActivity implements
     public void testNotification(View view){
         NotificationUtils.remindUserBecauseCharging(this);
     }
+
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

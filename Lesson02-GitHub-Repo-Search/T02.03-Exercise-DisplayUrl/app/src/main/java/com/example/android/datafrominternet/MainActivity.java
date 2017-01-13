@@ -47,14 +47,17 @@ public class MainActivity extends AppCompatActivity {
         mSearchResultsTextView = (TextView) findViewById(R.id.tv_github_search_results_json);
     }
 
+
     // TODO (2) Create a method called makeGithubSearchQuery
-    // TODO (3) Within this method, build the URL with the text from the EditText and set the built URL to the TextView
-    public void makeGithubSearchQuery(){
-        String urlText = mSearchBoxEditText.getText().toString();
-        URL githubSearchUrl = NetworkUtils.buildUrl(urlText);
-        mUrlDisplayTextView.setText(urlText.toString());
+    void makeGithubSearchQuery() {
+
+        String githubQuery=mSearchBoxEditText.getText().toString();
+        URL githubSearchUrl= NetworkUtils.buildUrl(githubQuery);
+        mUrlDisplayTextView.setText(githubSearchUrl.toString());
 
     }
+    // TODO (3) Within this method, build the URL with the text from the EditText and set the built URL to the TextView
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
@@ -66,9 +69,9 @@ public class MainActivity extends AppCompatActivity {
         int itemThatWasClickedId = item.getItemId();
         if (itemThatWasClickedId == R.id.action_search) {
             // TODO (4) Remove the Toast message when the search menu item is clicked
-            Context context = MainActivity.this;
-            String textToShow = "Search clicked";
-            Toast.makeText(context, textToShow, Toast.LENGTH_SHORT).show();
+//            Context context = MainActivity.this;
+//            String textToShow = "Search clicked";
+//            Toast.makeText(context, textToShow, Toast.LENGTH_SHORT).show();
             // TODO (5) Call makeGithubSearchQuery when the search menu item is clicked
             makeGithubSearchQuery();
             return true;

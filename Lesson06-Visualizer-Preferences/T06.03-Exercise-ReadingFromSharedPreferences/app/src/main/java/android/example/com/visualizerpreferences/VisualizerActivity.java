@@ -26,7 +26,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.SharedPreferencesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceManager;
@@ -54,9 +53,12 @@ public class VisualizerActivity extends AppCompatActivity {
     private void setupSharedPreferences() {
         // TODO (2) Get a reference to the default shared preferences from the PreferenceManager class
         // TODO (3) Get the value of the show_bass checkbox preference and use it to call setShowBass
-        SharedPreferences sharedpref = PreferenceManager.getDefaultSharedPreferences(this);
-        mVisualizerView.setShowBass(sharedpref.getBoolean("show_bass", true));
-        //mVisualizerView.setShowBass(true);
+
+
+        SharedPreferences sharedPreferences= PreferenceManager.getDefaultSharedPreferences(this);
+
+        mVisualizerView.setShowBass(sharedPreferences.getBoolean("show_bass",false));
+
         mVisualizerView.setShowMid(true);
         mVisualizerView.setShowTreble(true);
         mVisualizerView.setMinSizeScale(1);
