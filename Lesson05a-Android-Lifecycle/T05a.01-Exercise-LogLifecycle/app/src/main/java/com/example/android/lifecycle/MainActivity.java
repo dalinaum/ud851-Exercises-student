@@ -48,31 +48,47 @@ public class MainActivity extends AppCompatActivity {
         mLifecycleDisplay = (TextView) findViewById(R.id.tv_lifecycle_events_display);
 
         // TODO (1) Use logAndAppend within onCreate
+        logAndAppend(ON_CREATE);
+
     }
 
+
     // TODO (2) Override onStart, call super.onStart, and call logAndAppend with ON_START
-
+    protected void onStart(Bundle savedInstanceState){
+        super.onStart();
+        logAndAppend(ON_START);
+    }
     // TODO (3) Override onResume, call super.onResume, and call logAndAppend with ON_RESUME
-
+    protected void onResume(Bundle savedInstanceState){
+        super.onResume();
+        logAndAppend(ON_RESUME);
+    }
     // TODO (4) Override onPause, call super.onPause, and call logAndAppend with ON_PAUSE
-
+    protected void onPause(Bundle savedInstanceState){
+        super.onPause();
+        logAndAppend(ON_PAUSE);
+    }
     // TODO (5) Override onStop, call super.onStop, and call logAndAppend with ON_STOP
-
+    protected void onStop(Bundle savedInstanceState){
+        super.onStop();
+        logAndAppend(ON_STOP);
+    }
     // TODO (6) Override onRestart, call super.onRestart, and call logAndAppend with ON_RESTART
-
+    protected void onRestart(Bundle savedInstanceState){
+        super.onRestart();
+        logAndAppend(ON_RESTART);
+    }
     // TODO (7) Override onDestroy, call super.onDestroy, and call logAndAppend with ON_DESTROY
+    protected void onDestroy(Bundle savedInstanceState){
+        super.onDestroy();
+        logAndAppend(ON_DESTROY);
+    }
     /**
      * The final call you receive before your activity is destroyed. This can happen either because
      * the activity is finishing (someone called finish() on it, or because the system is
      * temporarily destroying this instance of the activity to save space. You can distinguish
      * between these two scenarios with the isFinishing() method.
      */
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        logAndAppend(ON_DESTROY);
-    }
 
     /**
      * Logs to the console and appends the lifecycle method name to the TextView so that you can

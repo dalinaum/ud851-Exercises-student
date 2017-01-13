@@ -17,7 +17,9 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
+        <service
+            android:name=".sync.WaterReminderIntentService"
+            android:exported="false"/>
         <!-- TODO (14) Declare WaterReminderIntentService in the Manifest and set the exported
          attribute to false-->
 
