@@ -30,7 +30,8 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
+        <activity android:name="com.example.android.explicitintent.ChildActivity">
+        </activity>
         <!--Android Studio will have created an Activity tag if you followed step 1 properly. Do-->
         <!--steps 8 - 11 within that tag. Please see the solution code if you get stuck.-->
         <!--TODO (8) Specify ChildActivity's parent using android:parentActivityName-->

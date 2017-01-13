@@ -81,6 +81,8 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
             if (prefIndex >= 0) {
                 // Set the summary to that label
                 listPreference.setSummary(listPreference.getEntries()[prefIndex]);
+            }else if(preference instanceof EditTextPreference){
+                preference.setSummary(value);
             }
         }
     }
