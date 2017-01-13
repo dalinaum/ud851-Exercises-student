@@ -17,6 +17,7 @@ package android.example.com.visualizerpreferences;
  */
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.example.com.visualizerpreferences.AudioVisuals.AudioInputReader;
 import android.example.com.visualizerpreferences.AudioVisuals.VisualizerView;
@@ -25,6 +26,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 public class VisualizerActivity extends AppCompatActivity {
@@ -44,16 +48,38 @@ public class VisualizerActivity extends AppCompatActivity {
 
     private void defaultSetup() {
         mVisualizerView.setShowBass(true);
-        mVisualizerView.setShowMid(true);
+        mVisualizerView.setShowMid(false);
         mVisualizerView.setShowTreble(true);
         mVisualizerView.setMinSizeScale(1);
         mVisualizerView.setColor(getString(R.string.pref_color_red_value));
+
     }
+
 
     /**
      * Below this point is code you do not need to modify; it deals with permissions
      * and starting/cleaning up the AudioInputReader
      **/
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = this.getMenuInflater();
+        menuInflater.inflate(R.menu.visualizer_menu,menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if( id == R.id.action_setting)
+        {
+            Intent intent = new Intent(this, SettingActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
     /**
      * onPause Cleanup audio stream
