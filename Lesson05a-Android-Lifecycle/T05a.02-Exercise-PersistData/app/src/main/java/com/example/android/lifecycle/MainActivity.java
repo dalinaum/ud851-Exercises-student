@@ -1,6 +1,7 @@
 package com.example.android.lifecycle;
 
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -14,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
      * being posted.
      */
     private static final String TAG = MainActivity.class.getSimpleName();
-
+    String LIFECYCLE_CALLBACKS_TEXT_KEY = "myokigetthat";
     // TODO (1) Create a key String called LIFECYCLE_CALLBACKS_TEXT_KEY
 
     /* Constant values for the names of each respective lifecycle callback */
@@ -50,10 +51,15 @@ public class MainActivity extends AppCompatActivity {
         mLifecycleDisplay = (TextView) findViewById(R.id.tv_lifecycle_events_display);
 
         // TODO (6) If savedInstanceState is not null and contains LIFECYCLE_CALLBACKS_TEXT_KEY, set that text on our TextView
-
+        if(savedInstanceState!=null){
+            if(savedInstanceState.containsKey(LIFECYCLE_CALLBACKS_TEXT_KEY)){
+                String allPreviousLifecycleCallbacks = savedInstanceState.getString(LIFECYCLE_CALLBACKS_TEXT_KEY);
+                mLifecycleDisplay.setText(allPreviousLifecycleCallbacks);
+                mLifecycleDisplay.append(" : changed : ");
+            }
+        }
         logAndAppend(ON_CREATE);
     }
-
     /**
      * Called when the activity is becoming visible to the user.
      *
@@ -136,7 +142,13 @@ public class MainActivity extends AppCompatActivity {
 
         logAndAppend(ON_DESTROY);
     }
-
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        logAndAppend(ON_SAVE_INSTANCE_STATE);
+        String saveStr = mLifecycleDisplay.getText().toString();
+        outState.putString(LIFECYCLE_CALLBACKS_TEXT_KEY, saveStr);
+    }
     // TODO (2) Override onSaveInstanceState
     // Do steps 3 - 5 within onSaveInstanceState
     // TODO (3) Call super.onSaveInstanceState
@@ -160,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
      * This method resets the contents of the TextView to its default text of "Lifecycle callbacks"
      *
      * @param view The View that was clicked. In this case, it is the Button from our layout.
-     */
+    */
     public void resetLifecycleDisplay(View view) {
         mLifecycleDisplay.setText("Lifecycle callbacks:\n");
     }
