@@ -40,7 +40,7 @@ public class GreenAdapter extends RecyclerView.Adapter<GreenAdapter.NumberViewHo
     private static final String TAG = GreenAdapter.class.getSimpleName();
 
     // TODO (8) Add a private static int called viewHolderCount that will hold the total number of ViewHolders that are created
-
+    private static int viewHolderCount;
     private int mNumberItems;
 
     /**
