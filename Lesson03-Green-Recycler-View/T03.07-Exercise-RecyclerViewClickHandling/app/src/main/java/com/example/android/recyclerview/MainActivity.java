@@ -21,10 +21,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 // TODO (8) Implement GreenAdapter.ListItemClickListener from the MainActivity
-public class MainActivity extends AppCompatActivity implements GreenAdapter.ListItemClickListener {
+public class MainActivity extends AppCompatActivity {
 
     private static final int NUM_LIST_ITEMS = 100;
 
@@ -36,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements GreenAdapter.List
     private RecyclerView mNumbersList;
 
     // TODO (9) Create a Toast variable called mToast to store the current Toast
-    private Toast toast;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements GreenAdapter.List
         /*
          * The GreenAdapter is responsible for displaying each item in the list.
          */
-        mAdapter = new GreenAdapter(NUM_LIST_ITEMS,this);
+        mAdapter = new GreenAdapter(NUM_LIST_ITEMS);
         mNumbersList.setAdapter(mAdapter);
     }
 
@@ -96,25 +95,13 @@ public class MainActivity extends AppCompatActivity implements GreenAdapter.List
              */
             case R.id.action_refresh:
                 // TODO (14) Pass in this as the ListItemClickListener to the GreenAdapter constructor
-                mAdapter = new GreenAdapter(NUM_LIST_ITEMS,this);
+                mAdapter = new GreenAdapter(NUM_LIST_ITEMS);
                 mNumbersList.setAdapter(mAdapter);
                 return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
-
-    @Override
-    public void onListItemClick(int clickItemIndex) {
-        if(toast!=null){
-            toast.cancel();
-        }
-        String toastMessage = "Item #" + clickItemIndex + " clicked.";
-        toast = Toast.makeText(this, toastMessage, Toast.LENGTH_LONG);
-
-        toast.show();
-    }
-
 
     // TODO (10) Override ListItemClickListener's onListItemClick method
     // TODO (11) In the beginning of the method, cancel the Toast if it isn't null

@@ -15,15 +15,10 @@
  */
 package com.example.android.recyclerview;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * We couldn't come up with a good name for this class. Then, we realized
@@ -38,43 +33,15 @@ import static android.content.ContentValues.TAG;
  * contents are green.
  */
 // TODO (4) From GreenAdapter, extend RecyclerView.Adapter<NumberViewHolder>
-public class GreenAdapter extends RecyclerView.Adapter<GreenAdapter.NumberViewHolder> {
+public class GreenAdapter {
 
     // TODO (1) Add a private int variable called mNumberItems
-    private int mNumberItems;
+
     // TODO (2) Create a constructor for GreenAdapter that accepts an int as a parameter for numberOfItems
-    public GreenAdapter(int numberOfItems){
-        mNumberItems = numberOfItems;
-    }
     // TODO (3) Store the numberOfItems parameter in mNumberItems
 
     // TODO (5) Override the onCreateViewHolder method
     // TODO (6) Create and return a new NumberViewHolder within this method
-
-    @Override
-    public NumberViewHolder onCreateViewHolder(ViewGroup ViewGroup, int viewType) {
-        Context context = ViewGroup.getContext();
-        int layoutIdForListItem = R.layout.number_list_item;
-        LayoutInflater inflater = LayoutInflater.from(context);
-        boolean shouldAttachTopParrentImmediately = false;
-
-        View view  = inflater.inflate(layoutIdForListItem,ViewGroup , shouldAttachTopParrentImmediately);
-        NumberViewHolder viewHolder = new NumberViewHolder(view);
-
-        return viewHolder;
-
-    }
-
-    @Override
-    public void onBindViewHolder(NumberViewHolder holder, int position) {
-        Log.d(TAG, "#" + position);
-        holder.bind(position);
-    }
-
-    @Override
-    public int getItemCount() {
-        return mNumberItems;
-    }
 
     // TODO (7) Override onBindViewHolder
     // TODO (8) Within onBindViewHolder, call holder.bind and pass in the position

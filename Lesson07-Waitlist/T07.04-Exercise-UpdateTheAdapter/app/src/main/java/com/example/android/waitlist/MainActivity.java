@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
         // TODO (10) Pass the entire cursor to the adapter rather than just the count
         // Create an adapter for that cursor to display the data
-        mAdapter = new GuestListAdapter(this, cursor);
+        mAdapter = new GuestListAdapter(this, cursor.getCount());
 
         // Link the adapter to the RecyclerView
         waitlistRecyclerView.setAdapter(mAdapter);

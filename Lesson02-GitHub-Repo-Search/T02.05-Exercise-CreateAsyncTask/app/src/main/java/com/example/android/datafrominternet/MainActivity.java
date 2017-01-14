@@ -15,7 +15,6 @@
  */
 package com.example.android.datafrominternet;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -65,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         // TODO (4) Create a new GithubQueryTask and call its execute method, passing in the url to query
-        new GithubQeuryTask().execute(githubSearchUrl);
     }
 
     // TODO (1) Create a class called GithubQueryTask that extends AsyncTask<URL, Void, String>
@@ -87,19 +85,4 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-    public class GithubQeuryTask extends AsyncTask<URL, Void, String>{
-
-        @Override
-        protected String doInBackground(URL... params) {
-            URL url = params[0];
-            String githubSearchUrlResults =null;
-            try{
-                githubSearchUrlResults = NetworkUtils.getResponseFromHttpUrl(url);
-            }catch (IOException e){
-                e.printStackTrace();
-            }
-            return githubSearchUrlResults;
-        }
-    }
-
 }
