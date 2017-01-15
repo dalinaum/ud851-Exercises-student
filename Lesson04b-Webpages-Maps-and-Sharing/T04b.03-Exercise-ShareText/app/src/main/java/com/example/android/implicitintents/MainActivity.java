@@ -64,9 +64,10 @@ public class MainActivity extends AppCompatActivity {
      */
     public void onClickShareTextButton(View v) {
         // TODO (5) Specify a String you'd like to share
+        String text="hello jusung!";
 
         // TODO (6) Replace the Toast with shareText, passing in the String from step 5
-        Toast.makeText(this, "TODO: Share text when this is clicked", Toast.LENGTH_LONG).show();
+        shareText(text);
     }
 
     /**
@@ -141,6 +142,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // TODO (1) Create a void method called shareText that accepts a String as a parameter
+    public void shareText(String shareString){
+        String mimeType="text/plain";
+        String title="test!!!";
+        ShareCompat.IntentBuilder.from(this)
+                .setType(mimeType)
+                .setChooserTitle(title)
+                .setText(shareString)
+                .startChooser();
+    }
     // Do steps 2 - 4 within the shareText method
 
         // TODO (2) Create a String variable called mimeType and set it to "text/plain"

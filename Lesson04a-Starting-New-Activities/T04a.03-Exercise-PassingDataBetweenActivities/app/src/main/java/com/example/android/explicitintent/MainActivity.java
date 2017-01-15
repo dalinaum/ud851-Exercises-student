@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // TODO (1) Retrieve the text from the EditText and store it in a variable
-
+                String retiriveString=mNameEntry.getText().toString();
                 /*
                  * Storing the Context in a variable in this case is redundant since we could have
                  * just used "this" or "MainActivity.this" in the method call below. However, we
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                  * context, which we stored in the variable named "context".
                  */
                 Intent startChildActivityIntent = new Intent(context, destinationActivity);
-
+                startChildActivityIntent.putExtra(Intent.EXTRA_TEXT,retiriveString);
                 // TODO (2) Use the putExtra method to put the String from the EditText in the Intent
 
                 /*

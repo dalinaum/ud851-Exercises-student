@@ -28,7 +28,7 @@ import android.support.v7.preference.PreferenceScreen;
 import android.widget.Toast;
 
 // TODO (1) Implement OnSharedPreferenceChangeListener
-public class SettingsFragment extends PreferenceFragmentCompat {
+public class SettingsFragment extends PreferenceFragmentCompat implements OnSharedPreferenceChangeListener{
 
     @Override
     public void onCreatePreferences(Bundle bundle, String s) {
@@ -39,11 +39,38 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         // TODO (3) Get the preference screen, get the number of preferences and iterate through
         // all of the preferences if it is not a checkbox preference, call the setSummary method
         // passing in a preference and the value of the preference
+        SharedPreferences sharedPreferences=getPreferenceScreen().getSharedPreferences();
+        PreferenceScreen preferenceScreen=getPreferenceScreen();
+        int count=preferenceScreen.getPreferenceCount();
+        for(int i=0;i<count;i++){
+            Preference p=preferenceScreen.getPreference(i);
+            if(!(p instanceof CheckBoxPreference)){
+                String value=sharedPreferences.getString(p.getKey(),"");
+                setPreferenceSummary(p,value);
+            }
+        }
     }
-
+    private void setPreferenceSummary(Preference prefrence,String value){
+        if(prefrence instanceof ListPreference){
+            ListPreference listPreference=(ListPreference)prefrence;
+            int preIndex=listPreference.findIndexOfValue(value);
+            if(preIndex>=0){
+                listPreference.setSummary(listPreference.getEntries()[preIndex]);
+            }
+        }
+    }
     // TODO (4) Override onSharedPreferenceChanged and, if it is not a checkbox preference,
     // call setPreferenceSummary on the changed preference
-
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        Preference preference=findPreference(key);
+        if(preference!=null){
+            if(!(preference instanceof CheckBoxPreference)){
+                String value=sharedPreferences.getString(preference.getKey(),"");
+                setPreferenceSummary(preference,value);
+            }
+        }
+    }
     // TODO (2) Create a setPreferenceSummary which takes a Preference and String value as parameters.
     // This method should check if the preference is a ListPreference and, if so, find the label
     // associated with the value. You can do this by using the findIndexOfValue and getEntries methods
@@ -53,5 +80,15 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     // onCreate and onDestroy respectively.
 
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+    }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
+    }
 }

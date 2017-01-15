@@ -25,6 +25,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import static com.example.android.todolist.data.TaskContract.TaskEntry.TABLE_NAME;
 
@@ -157,13 +158,29 @@ public class TaskContentProvider extends ContentProvider {
     public int delete(@NonNull Uri uri, String selection, String[] selectionArgs) {
 
         // TODO (1) Get access to the database and write URI matching code to recognize a single item
+        final SQLiteDatabase db = mTaskDbHelper.getWritableDatabase();
+
+        int match = sUriMatcher.match(uri);
+        int returnNum;
 
         // TODO (2) Write the code to delete a single row of data
         // [Hint] Use selections to delete an item by its row ID
+        switch(match){
+            case TASK_WITH_ID :
+                String id = uri.getPathSegments().get(1);
+                returnNum = db.delete(TABLE_NAME, "_id=?", new String[]{id});
 
+                break;
+            default :
+                throw new UnsupportedOperationException("잘못된 URI 경로입니다 : " + uri);
+        }
+
+        if(returnNum != 0){
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
         // TODO (3) Notify the resolver of a change and return the number of items deleted
 
-        throw new UnsupportedOperationException("Not yet implemented");
+        return returnNum;
     }
 
 
